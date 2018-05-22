@@ -1,0 +1,89 @@
+{% extends "directlinks/base.html" %}
+{% block title %} MOST: Statistics {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="padding-top: 10em; color: maroon;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="text-align:left;">
+                <h3 style="font-weight: bold; color:black;">Statistics</h3>
+                <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+                    <!-- Set font size -->
+                    <strong style = "font-size:24px;">
+                        <!-- initialize variables -->
+                        <script>
+                            var sum = 0;
+                            var realSum = 0;
+                            var count = 0;
+                            var d = new Date();
+                            var curMonth = Number(d.getMonth()+1);
+                            var curYear = Number(d.getFullYear());
+                        </script>
+                        {% if stat_list %}
+                            <!-- go through each Reservastion -->
+                            {% for stat in stat_list %}
+                                <script>
+                                    // check the date of each Reservastion
+                                    var date = "{{ stat.date }}";
+                                    month = date.substring(0, 3);
+                                    var year = Number(date.substring(date.length-4));
+                                    if(month == "Jan")
+                                        month = 1;
+                                    else if(month == "Feb")
+                                        month = 2;
+                                    else if(month == "Mar")
+                                        month = 3;
+                                    else if(month == "Apr")
+                                        month = 4;
+                                    else if(month == "May")
+                                        month = 5;
+                                    else if(month == "Jun")
+                                        month = 6;
+                                    else if(month == "Jul")
+                                        month = 7;
+                                    else if(month == "Aug")
+                                        month = 8;
+                                    else if(month == "Sep")
+                                        month = 9;
+                                    else if(month == "Oct")
+                                        month = 10;
+                                    else if(month == "Nov")
+                                        month = 11;
+                                    else
+                                        month = 12;
+                                    // do the years match?
+                                    if(curYear == year){
+                                        // do the months match?
+                                        if(curMonth == month){
+                                            // they do, record the stats
+                                            realSum += Number("{{ stat.actual_group_size }}")
+                                            sum += Number("{{ stat.group_size }}");
+                                            count++;
+                                        }
+                                    }
+                                </script>
+                            {% endfor %}
+                            <!-- Print the results -->
+                            <script>
+                                document.write("Reserved Attendance: " + sum + "<br><br>Actual Attendance: " + realSum + "<br><br>Number of Tours: " + count);
+                            </script>
+                        </strong>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <!-- button to print the page -->
+                        <button type="submit" onclick="window.print();" class="btn btn-primary btn-med">Print</button>
+                        <form action="{% url 'scheduling:scheduling' %}" method ="get" style="display: inline">
+                            <button type="submit" class="btn btn-primary btn-med">Return to Scheduling</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- No Reservastions, no stats to report -->
+            {% else %}
+                <h1>No Statistics.</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

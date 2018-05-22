@@ -1,0 +1,15 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} MOST: Confirm delete{% endblock %}
+
+{% block body %}
+    <div class="container" style="padding-top: 8em">
+        <div class="alert alert-danger">
+            <form method="post">{% csrf_token %}
+                <p class="text-danger">You are about to delete reservation <strong>no.{{ object.pk }}</strong> scheduled for <strong>{{ object.date }}
+                    from {{ object.start_time }} to {{ object.end_time }}</strong> under <strong>{{ object.customer }}'s</strong> name.</p>
+                <p class="text-danger">Are you sure you want to <strong>delete</strong> this reservation?</p>
+                <input type="submit" value="Confirm" />
+            </form>
+        </div>
+    </div>
+{% endblock %}

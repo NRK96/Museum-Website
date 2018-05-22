@@ -1,0 +1,33 @@
+{% extends "directlinks/base.html" %}
+{% block title %}MOST: Scheduling {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="padding-top: 8em; color: maroon;">
+            <div class="col-sm-2"></div>
+                <div class="col-sm-8" style="text-align:center;">
+                    <h3 style="font-weight: bold; color:black;">Scheduling Home</h3>
+                    <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray; text-align:left;">
+                        <div class="row" style="text-align:center;">
+                            <div class="col-md-4">
+                                <a href=/scheduling/reservation>Reservations</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/scheduling/request-list">Requests</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href=/scheduling/docent>Docents</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href=/scheduling/profiles>Customer Profiles</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/scheduling/statistics">Statistics</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

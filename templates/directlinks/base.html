@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>{% block title %}Title{% endblock %}</title>
+
+    <!-- Bootstrap link will go here for our CSS -->
+    <!-- Bootstrap Core CSS -->
+        {% load staticfiles %}
+    	<link href="{% static 'scheduling/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'scheduling/bootstrap/css/customnavbar.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a href="/" class="navbar-left "><img src="{% static "scheduling/MOSTlong.png" %}" height="50px"/></a>
+{#        <div class="navbar-header">#}
+{#            <a class="navbar-brand" href="/">MOST</a>#}
+{#        </div>#}
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/scheduling">Scheduling</a></li>
+            <li><a href="/request/entry">Request A Tour</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <p class="navbar-text">User: {{ user.get_username }}</p>
+                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log-out</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Log-in</a></li>
+            {% endif %}
+            <li><a href="/admin">Admin</a></li>
+        </ul>
+    </div>
+</nav>
+</div>
+{% block body %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "directlinks/base.html" %}
+{% block title %}MOST: Request Form{% endblock %}
+
+{% block body %}
+    <div class="container" style="padding-top: 8em">
+        <div class="alert alert-info">
+            <p>Here, you can submit a request for a tour online. Requests are checked daily and are confirmed when possible.
+            However, online requests do not take precedence over requests made in-person or by phone call, meaning that
+            if a request is made for a time slot and someone reserves the same time slot in person or over the phone before
+            that request is processed, the online request will be ignored.</p>
+        </div>
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'scheduling/form-template.html' %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} {{ object.name }} {% endblock %}
+
+{% block body %}
+    <!-- Reservation Header -->
+    <div class="container">
+        <div class="row" style="padding-top: 8em">
+            <div class="col-md-9">
+                <h2>Reservation Details <small>Reservation no:{{ object.pk }}</small></h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-3" style="color: maroon"></div>
+        <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+    </div>
+    </div>
+    <div class="container">
+        <div class="col-lg-9">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Group Size</th>
+                    <th>Actual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.customer }}</td>
+                    <td>{{ object.group_size }}</td>
+                    <td>{{ object.actual_group_size }}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Date Reserved</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.date }}</td>
+                    <td>{{ object.start_time }}</td>
+                    <td>{{ object.end_time }}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Assigned Docent</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.docent }}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <!-- Extra Info -->
+    <div class="container">
+        <h4 class="text-info"> Extra Info </h4>
+        <div class="col-lg-5">
+            <p>Notes: {{ object.info_text }}</p>
+            <p>Date Created: {{ object.pub_date }}</p>
+        </div>
+    </div>
+    <!-- Date created -->
+    <div class="container">
+        <div class="col-lg-4"></div>
+    </div>
+    <!-- Nav buttons -->
+    <div class="container">
+        <form action="{% url 'scheduling:res_update' object.pk %}" method="get" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn-med">Edit this Reservation</button>
+        </form>
+        <form action="{% url 'scheduling:res_index' %}" method ="get" style="display: inline">
+            <button type="submit" class="btn btn-primary btn-med">Return to Reservations</button>
+        </form>
+    </div>
+{% endblock %}

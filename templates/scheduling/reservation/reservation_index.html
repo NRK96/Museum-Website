@@ -1,0 +1,111 @@
+{% extends "directlinks/base.html" %}
+{% block title %}MOST: Reservation List {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="padding-top: 8em; color: maroon;">
+            <h3 style="font-weight: bold; color: black">Upcoming Reservations. <small>{{ today }} - {{ a_week }}</small></h3>
+            <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray">
+                {% if recent %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Start time</th>
+                                <th>End time</th>
+                                <th>Docent</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        {% for res in recent %}
+                            <tr>
+                            <td><a href="{% url 'scheduling:prof_detail' res.customer.slug %}">{{ res.customer }}</a></td>
+                            <td>{{ res.date }}</td>
+                            <td>{{ res.start_time }}</td>
+                            <td>{{ res.end_time }}</td>
+                            <td>{{ res.docent }}</td>
+                            <td>
+                                <form action="{% url 'scheduling:res_detail' res.pk %}" method="get" style="display: inline;">
+                                    <button type="submit" class="btn btn-success btn-sm">Details</button>
+                                </form>
+                                <form action="{% url 'scheduling:res_delete' res.pk %}" method="get" style="display: inline">
+                                    <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tbody>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                <h3 style="text-align: center">No upcoming reservations</h3>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" style="padding-top: 2em; color: maroon;">
+            <h3 style="font-weight: bold; color:black;">Reservations</h3>
+            <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+            <!-- Reservation table -->
+                {% if res_list %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Start time</th>
+                                <th>End time</th>
+                                <th>Docent</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                     <tbody>
+                    {% for res in res_list %}
+                        <tr>
+                            <td><a href="{% url 'scheduling:prof_detail' res.customer.slug %}">{{ res.customer }}</a></td>
+                            <td>{{ res.date }}</td>
+                            <td>{{ res.start_time }}</td>
+                            <td>{{ res.end_time }}</td>
+                            <td>{{ res.docent }}</td>
+                            <td>
+                                <form action="{% url 'scheduling:res_detail' res.pk %}" method="get" style="display: inline;">
+                                    <button type="submit" class="btn btn-success btn-sm">Details</button>
+                                </form>
+                                <form action="{% url 'scheduling:res_delete' res.pk %}" method="get" style="display: inline">
+                                    <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                     </tbody>
+                    </table>
+                    {% else %}
+                    <h1>No reservations to display</h1>
+                {% endif %}
+            </div>
+                <!-- Navigation buttons -->
+                <div class="container">
+                    <form action="{% url 'scheduling:res_create'  %}" method="get" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-med">Create a New Reservation</button>
+                    </form>
+                    <form action="{% url 'scheduling:scheduling' %}" method ="get" style="display: inline">
+                        <button type="submit" class="btn btn-primary btn-med">Return to Scheduling</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+<div class="contatiner">
+</div>
+
+
+{% endblock %}
+
+
+
+

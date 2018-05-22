@@ -1,0 +1,48 @@
+{% extends "directlinks/base.html" %}
+{% block title %}MOST: Docent list {% endblock %}
+
+{% block body %}
+<div class="container">
+        <div class="row" style="padding-top: 10em; color: maroon;">
+        	<div class="col-md-3"></div>
+
+        	<h3 style="font-weight: bold; color:black;">Docents</h3>
+            <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+         {% if doc_list %}
+             <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+             <tbody>
+            {% for doc in doc_list %}
+                <tr>
+                    <td><a href="{% url 'scheduling:doc_detail' doc.slug %}">{{ doc.name }}</a></td>
+                    <td>{{ doc.date_created }}</td>
+                </tr>
+            {% endfor %}
+             </tbody>
+             </table>
+            {% else %}
+            <h1>No docents to display</h1>
+            {% endif %}
+            </div>
+            <div class="btn-group">
+                <form action="{% url 'scheduling:doc_create'  %}" method="post" style="display: inline;">
+                 {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-med">Create a New Docent Profile</button>
+                </form>
+                <form action="{% url 'scheduling:scheduling' %}" method ="get" style="display: inline">
+                    <button type="submit" class="btn btn-primary btn-med">Return to Scheduling</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,42 @@
+.navbar {
+     background-image: linear-gradient(#cc0000, #990000 60%, #800000);
+     background-repeat: no-repeat;
+     border-bottom: 2px solid #101010;
+     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+     border-radius: 0px;
+}
+
+.navbar-default {
+     background-color: #ff0000;
+     border-color: #101010;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus ,
+.navbar-default .navbar-nav > li > a {
+     color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+     color: #FFF;
+     background-color: #ff0000;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #ff0000;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #ff0000;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
+
+.navbar-default .navbar-text {
+  color: #FFF;
+}

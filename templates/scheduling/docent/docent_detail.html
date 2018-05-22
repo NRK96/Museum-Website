@@ -1,0 +1,65 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} {{ object.name }} {% endblock %}
+
+{% block body %}
+    <!-- Profile Header -->
+    <div class="container">
+        <div class="row" style="padding-top: 8em">
+            <div class="col-md-6"><div>
+                <h2>{{ object.name }}'s Profile</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-3" style="color: maroon">
+            <h3>Current Reservations</h3>
+        </div>
+    <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+    <!-- Reservations list -->
+        {% if object.reservation_set %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Start time</th>
+                <th>End time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for res in object.reservation_set.all %}
+                <tr>
+                    <td>{{ res.date }}</td>
+                    <td>{{ res.start_time }}</td>
+                    <td>{{ res.end_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    </div>
+    <!-- Email -->
+    <div class="container">
+        <div class="panel-info">
+            <div class="panel-heading">Email</div>
+            <div class="panel-body">{{ object.email }}</div>
+        </div>
+    </div>
+    <!-- Date created -->
+    <div class="container">
+        <div class="panel-info">
+            <div class="panel-heading">Date Created</div>
+            <div class="panel-body">{{ object.date_created }}</div>
+        </div>
+    </div>
+    <!-- Nav buttons -->
+    <div class="container">
+        <form action="{% url 'scheduling:res_create' %}" method="get" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-med">Create a New Reservation</button>
+        </form>
+        <form action="{% url 'scheduling:doc_index' %}" method ="get" style="display: inline">
+            <button type="submit" class="btn btn-primary btn-med">Return to Docents</button>
+        </form>
+    </div>
+{% endblock %}

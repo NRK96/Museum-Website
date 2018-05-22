@@ -1,0 +1,63 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} MOST: Request list {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row" style="padding-top: 10em; color: maroon;">
+        <h3 style="font-weight: bold; color:black;">Requests</h3>
+        <div style="border-style: solid; border-radius:.9em; border-width: 2px; background-color: lightgray;">
+        <!-- Reservation table -->
+            {% if req_list %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name of Party</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Group Size</th>
+                            <th>Start time</th>
+                            <th>End time</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                 <tbody>
+                {% for req in req_list %}
+                    <tr>
+                        <td>{{ req.name }}</td>
+                        <td>{{ req.email }}</td>
+                        <td>{{ req.group_size }}</td>
+                        <td>{{ req.reserved_date }}</td>
+                        <td>{{ req.start_time }}</td>
+                        <td>{{ req.end_time }}</td>
+                        <td>
+                            {% if req.name not in profile_exist_list %}
+                                <form action="{% url 'scheduling:prof_create_from_req' req.pk %}" method="get" style="display: inline;">
+                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" title="profile">Confirm</button>
+                                </form>
+                            {% elif req.name in profile_exist_list %}
+                                <form action="{% url 'scheduling:res_create_from_req' req.pk %}" method="get" style="display: inline;">
+                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" title="res">Confirm</button>
+                                </form>
+                            {% endif %}
+                            <form action="{% url 'scheduling:req_delete' req.pk %}" method="get" style="display: inline">
+                                <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                 </tbody>
+                </table>
+                {% else %}
+                <h1>No requests have been made</h1>
+            {% endif %}
+        </div>
+            <!-- Navigation buttons -->
+            <div class="container">
+                <form action="{% url 'scheduling:scheduling' %}" method ="get" style="display: inline">
+                    <button type="submit" class="btn btn-primary btn-med">Return to Scheduling</button>
+                </form>
+            </div>
+    </div>
+<div class="container">
+</div>
+{% endblock %}
