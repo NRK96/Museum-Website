@@ -1,0 +1,13 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} MOST: Logout {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="padding-top: 10em;">
+            <p>Successfully Logged Out!</p>
+            <a href="{% url 'login' %}">Click here to log back in.</a></a>
+        </div>
+    </div>
+{% endblock %}
+{% block curuser %}
+{% endblock %}

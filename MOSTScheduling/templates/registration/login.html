@@ -1,0 +1,60 @@
+{% extends 'directlinks/base.html' %}
+{% block title %} MOST: Login {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="padding-top: 10em;">
+            {% if form.errors %}
+                <p>Your username and password did not match. Please try again.</p>
+            {% endif %}
+            {# Not Authorized to view messages #}
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p> Your account does not have access to this page.</p>
+                {% else %}
+                    <p>Please login to see this page</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% if not user.is_authenticated %}
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <div class="container">
+            <div class="row" >
+                <div>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </div>
+                <div>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </div>
+                <div>
+                    <input type="submit" value="login" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </div>
+        </div>
+    </form>
+        {% else %}
+        <div class="container">
+            <div class="row" >
+                <p>Already logged in as: {{ user.get_username }}</p>
+                <div>
+                    <a href="{% url 'logout' %}">Click Here to Log-out</a>
+                </div>
+            </div
+        </div>
+    {% endif %}
+
+    <div class="container" style="padding-top: 3em;">
+        <form action="/admin" method ="get" style="display: inline">
+            <button type="submit" class="btn btn-primary btn-med">Admin Login</button>
+        </form>
+    </div>
+
+    {# Assumes you setup the password_rest view in your URLconf #}
+{% endblock %}
+{% block curuser %}
+{% endblock %}
